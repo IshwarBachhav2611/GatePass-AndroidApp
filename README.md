@@ -1,271 +1,246 @@
-# GatePass – Android UI
+# 🚪 GatePass – Android UI
 
-GatePass is an **Android-based digital visitor management system UI** designed for **MET College Institute**. The application provides separate interfaces for **Admin** and **Guard** to make visitor management more organized and easier to handle.
+> Digital Visitor Management System UI for **MET College Institute**
 
+![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)
+![Language](https://img.shields.io/badge/Language-Java-ED8B00?logo=openjdk&logoColor=white)
+![UI](https://img.shields.io/badge/UI-XML-blue)
+![Status](https://img.shields.io/badge/Status-UI%20Complete-brightgreen)
 
-## 📌 Project Overview
+---
 
-At MET College, visitor entry can involve manual registration and record keeping. GatePass provides a digital interface where guards can display a **QR code for visitor registration**, manage visitor requests, and view accepted visitors.
+## 📑 Table of Contents
 
-The Admin interface allows administrators to **manage guards** and **view daily visitor records**.
+- [Overview](#-overview)
+- [Features](#-features)
+- [Application Flow](#-application-flow)
+- [Admin Module](#-admin-module)
+- [Guard Module](#-guard-module)
+- [Project Structure](#-project-structure)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Project Objectives](#-project-objectives)
+- [Current Status](#-current-status)
+- [Future Scope](#-future-scope)
+- [Developer](#-developer)
 
-The current project mainly focuses on the **UI and navigation flow**. Backend, database, and actual visitor registration processing can be integrated later.
+---
 
+## 📌 Overview
 
-# 🔄 Application Flow
+**GatePass** is an Android-based visitor management app UI designed for **MET College Institute**. Visitor entry at the college gate is currently registered manually. GatePass replaces this with a digital flow:
 
-                         ┌─────────────────┐
-                         │  Splash Screen  │
-                         └────────┬────────┘
-                                  │
-                                  ▼
-                         ┌─────────────────┐
-                         │   Login Screen  │
-                         └────────┬────────┘
-                                  │
-                                  ▼
-                         ┌─────────────────┐
-                         │    Role Check   │
-                         └────────┬────────┘
-                                  │
-                    ┌─────────────┴─────────────┐
-                    │                           │
-                    ▼                           ▼
-            ┌───────────────┐           ┌───────────────┐
-            │     Admin     │           │     Guard     │
-            │   Dashboard   │           │   Dashboard   │
-            └───────┬───────┘           └───────┬───────┘
-                    │                           │
-          ┌─────────┴─────────┐        ┌────────┴─────────┐
-          │                   │        │                  │
-          ▼                   ▼        ▼                  ▼
- ┌────────────────┐  ┌───────────────┐ ┌────────────┐ ┌──────────────────┐
- │ Manage Guards  │  │ Daily Records │ │  Show QR   │ │ Visitor Requests │
- └───────┬────────┘  └───────────────┘ └─────┬──────┘ └────────┬─────────┘
-         │                                   │                 │
-         ▼                                   ▼                 ▼
- ┌────────────────┐                   ┌────────────┐    ┌───────────────┐
- │ Add / View     │                   │  QR Popup  │    │Accept / Reject │
- │ Guards         │                   └─────┬──────┘    └───────┬───────┘
- └────────────────┘                         │                   │
-                                            ▼                   ▼
-                                   ┌─────────────────┐   ┌───────────────┐
-                                   │ Visitor Scans QR│   │ Visitor List  │
-                                   └────────┬────────┘   └───────┬───────┘
-                                            │                    │
-                                            ▼                    │
-                                   ┌────────────────────┐        │
-                                   │Visitor Registration│        │
-                                   └────────────────────┘        │
-                                                                 │
-                                                                 ▼
-                                                            ┌────────┐
-                                                            │ Logout │
-                                                            └───┬────┘
-                                                                │
-                                                                ▼
-                                                             ┌───────┐
-                                                             │ Login │
-                                                             └───────┘
+- The **Guard** shows a QR code at the gate.
+- The **Visitor** scans it with their own phone and fills in a registration form.
+- The **Guard** accepts or rejects the request and tracks accepted visitors.
+- The **Admin** manages guards and reviews daily visitor records.
 
-#👨‍💼 Admin Flow
-After successful Admin login:
+> ⚠️ This repository currently contains the **UI and navigation flow only**. Backend, database, and real visitor registration processing will be added later.
 
-                    ┌───────────────┐
-                    │  Admin Login  │
-                    └───────┬───────┘
-                            │
-                            ▼
-                  ┌───────────────────┐
-                  │  Admin Dashboard  │
-                  └─────────┬─────────┘
-                            │
-                 ┌──────────┴──────────┐
-                 │                     │
-                 ▼                     ▼
-        ┌────────────────┐    ┌────────────────┐
-        │ Manage Guards  │    │ Daily Records  │
-        └───────┬────────┘    └───────┬────────┘
-                │                     │
-                ▼                     ▼
-        ┌────────────────┐    ┌────────────────┐
-        │  View Guards   │    │  View Records  │
-        └───────┬────────┘    └────────────────┘
-                │
-                ▼
-        ┌────────────────┐
-        │   Add Guard    │
-        └───────┬────────┘
-                │
-                ▼
-        ┌────────────────┐
-        │   Save Guard   │
-        └───────┬────────┘
-                │
-                ▼
-           ┌──────────┐
-           │  Logout  │
-           └────┬─────┘
-                │
-                ▼
-           ┌──────────┐
-           │  Login   │
-           └──────────┘
+---
 
-**Admin Features**
-- Manage Guards
-  - View registered guards
-  - Add new guard
-  - Enter guard information
-  - Assign gate shift
-  - System-generated password information
-- Daily Records
-  - View visitor records
-  - View daily entry information
-  - Search records
-  - Date-wise filtering
-- Logout
-  - Logout from Admin Dashboard
-  - Return to Login screen
- 
-#🛡️ Guard Flow
-After successful Guard login:
+## ✨ Features
 
-                    ┌───────────────┐
-                    │  Guard Login  │
-                    └───────┬───────┘
-                            │
-                            ▼
-                  ┌───────────────────┐
-                  │  Guard Dashboard  │
-                  └─────────┬─────────┘
-                            │
-             ┌──────────────┼──────────────┐
-             │              │              │
-             ▼              ▼              ▼
-       ┌───────────┐ ┌──────────────┐ ┌───────────────┐
-       │  Show QR  │ │   Pending    │ │ Visitor List  │
-       │           │ │   Requests   │ │               │
-       └─────┬─────┘ └──────┬───────┘ └───────┬───────┘
-             │              │                 │
-             ▼              ▼                 ▼
-       ┌───────────┐ ┌──────────────┐ ┌─────────────────┐
-       │ QR Popup  │ │Accept/Reject │ │Accepted Visitors│
-       └─────┬─────┘ └──────┬───────┘ └─────────────────┘
-             │              │
-             ▼              ▼
-       ┌───────────────┐ ┌──────────────┐
-       │Visitor Scans  │ │Visitor Status│
-       │     QR        │ └──────────────┘
-       └───────┬───────┘
-               │
-               ▼
-       ┌────────────────────┐
-       │Visitor Registration│
-       └────────────────────┘
-               │
-               ▼
-          ┌──────────┐
-          │  Logout  │
-          └────┬─────┘
-               │
-               ▼
-          ┌──────────┐
-          │  Login   │
-          └──────────┘
+| Feature | Description |
+|---|---|
+| 🔐 Role-Based Login | Separate login for Admin and Guard |
+| 👨‍💼 Admin Dashboard | Manage guards and view daily records |
+| 🛡️ Guard Dashboard | Show QR, handle visitor requests, view visitor list |
+| 📱 QR-Based Registration | Guard displays a QR; visitor scans it on their own phone |
+| ✅ Request Management | Accept or reject visitor requests |
+| 👥 Guard Management | Add and view guards, assign gate shifts |
+| 📊 Daily Records | View, search, and filter visitor records by date |
+| 🚪 Logout | Available for both Admin and Guard |
 
-**Guard Features**
-🔐 Role-Based Login
-- Admin login
-- Guard login
+---
 
-👨‍💼 Admin Dashboard
-- Manage Guards
-- Daily Records
+## 🔄 Application Flow
 
-🛡️ Guard Dashboard
-- Show Visitor QR
-- Visitor Requests
-- Visitor List
+```text
+Splash Screen
+     │
+     ▼
+Login Screen
+     │
+     ▼
+ Role Check
+     │
+ ┌───┴──────────────┐
+ ▼                  ▼
+Admin Dashboard   Guard Dashboard
+ │                  │
+ ├─ Manage Guards   ├─ Show QR
+ └─ Daily Records   ├─ Visitor Requests
+                    └─ Visitor List
+     │                  │
+     └────────┬─────────┘
+              ▼
+           Logout
+              │
+              ▼
+        Login Screen
+```
 
-📱 QR-Based Visitor Registration
-- Guard displays QR
-- Visitor scans QR using phone
-- Visitor registration process starts through the visitor's phone
+---
 
-✅ Visitor Request Management
-- Accept visitor
-- Reject visitor
+## 👨‍💼 Admin Module
 
-👥 Guard Management
-- Add and view guards
-- Guard information and shift management
+```text
+Admin Login → Admin Dashboard
+                  │
+        ┌─────────┴─────────┐
+        ▼                   ▼
+  Manage Guards        Daily Records
+        │                   │
+   View Guards         View Records
+        │
+    Add Guard
+        │
+    Save Guard
+```
 
-📊 Daily Records
-- View visitor records
+**Manage Guards**
+- View registered guards
+- Add a new guard
+- Enter guard information
+- Assign gate shift
+- Auto-generated password information
+
+**Daily Records**
+- View visitor records and daily entry information
 - Search records
-- Date-wise filtering
+- Filter by date
 
-🚪 Logout
-- Available for both Admin and Guard
+**Logout** – returns to the Login screen.
 
+---
 
-#🏗️ Project Structure
+## 🛡️ Guard Module
+
+```text
+Guard Login → Guard Dashboard
+                  │
+     ┌────────────┼────────────────┐
+     ▼            ▼                ▼
+  Show QR   Visitor Requests   Visitor List
+     │            │                │
+  QR Popup   Accept / Reject   Accepted Visitors
+     │            │
+ Visitor      Visitor Status
+ Scans QR
+     │
+ Visitor Registration
+```
+
+**📱 Show Visitor QR** – Opens a popup with the visitor registration QR code so visitors can register from their own phones.
+
+**📋 Visitor Requests** – View incoming requests and **Accept** or **Reject** them.
+
+**👥 Visitor List** – View accepted visitors and their entry information.
+
+**🚪 Logout** – returns to the Login screen.
+
+---
+
+## 🏗️ Project Structure
+
+```text
 GatePass/
-│
 ├── app/
 │   └── src/
 │       └── main/
-│           │
-│           ├── java/
-│           │   └── com/ishwar/gatepass/
-│           │       ├── SplashActivity.java
-│           │       ├── LoginActivity.java
-│           │       ├── MainActivity.java
-│           │       ├── AdminDashboardActivity.java
-│           │       ├── GuardDashboardActivity.java
-│           │       └── DailyRecordsActivity.java
-│           │
+│           ├── java/com/ishwar/gatepass/
+│           │   ├── SplashActivity.java
+│           │   ├── LoginActivity.java
+│           │   ├── MainActivity.java
+│           │   ├── AdminDashboardActivity.java
+│           │   ├── GuardDashboardActivity.java
+│           │   └── DailyRecordsActivity.java
 │           └── res/
 │               ├── layout/
 │               ├── drawable/
 │               ├── mipmap/
 │               └── values/
-│
 └── README.md
+```
 
-#🎯 Project Objectives
+---
+
+## 🧰 Tech Stack
+
+| Category | Technology |
+|---|---|
+| Platform | Android |
+| Language | Java |
+| UI | XML layouts |
+| IDE | Android Studio |
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+```bash
+   git clone https://github.com/<your-username>/GatePass.git
+```
+2. Open the project in **Android Studio**.
+3. Let Gradle sync finish.
+4. Run on an emulator or a physical Android device.
+
+> The app uses dummy data for now, so no backend setup is needed.
+
+---
+
+## 🎯 Project Objectives
+
 1. Reduce manual visitor registration.
 2. Provide a simple digital interface for security guards.
-3. Allow visitors to access registration through QR scanning.
-4. Provide Admin with guard management.
-5. Provide digital daily visitor records.
+3. Let visitors register through QR scanning.
+4. Give the Admin control over guard management.
+5. Maintain digital daily visitor records.
 6. Make visitor approval easier for guards.
-7. Provide a professional and organized college gate management interface.
+7. Offer a professional, organized gate management interface.
 
-#📌 Current Status
-✅ UI Design
-✅ Splash Screen
-✅ Login Interface
-✅ Admin Dashboard
-✅ Guard Dashboard
-✅ Manage Guards UI
-✅ Add Guard UI
-✅ Daily Records UI
-✅ Visitor Request UI
-✅ Visitor List UI
-✅ QR Popup UI
-✅ Logout UI
+---
 
-🔄 Backend Integration
-🔄 Database Integration
-🔄 Real-time Visitor Management
+## 📌 Current Status
 
-#👨‍💻 Developer
-Ishwar Bachhav
-Project: GatePass
-Institute: MET College Institute
-Platform: Android
-Language: Java
-UI: XML
-      
+**Completed**
+- [x] UI design
+- [x] Splash screen
+- [x] Login interface
+- [x] Admin dashboard
+- [x] Guard dashboard
+- [x] Manage Guards and Add Guard UI
+- [x] Daily Records UI
+- [x] Visitor Request and Visitor List UI
+- [x] QR popup UI
+- [x] Logout flow
+
+**In Progress / Planned**
+- [ ] Backend integration
+- [ ] Database integration
+- [ ] Real-time visitor management
+
+---
+
+## 🔮 Future Scope
+
+- Real QR generation linked to a visitor registration form
+- Token generation with date, time, and reason for visit
+- Persistent storage for guards and visitor records
+- Exportable daily reports
+
+---
+
+## 👨‍💻 Developer
+
+**Ishwar Bachhav**
+
+| Detail | Information |
+|---|---|
+| Project | GatePass |
+| Institute | MET College Institute |
+| Platform | Android |
+| Language | Java |
+| UI | XML |
